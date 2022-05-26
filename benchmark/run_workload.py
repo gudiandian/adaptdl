@@ -18,7 +18,7 @@ def build_images(models, repository):
     templates = {}
     for model in models:
         with open(os.path.join(models_dir, model, "adaptdljob.yaml")) as f:
-            template = yaml.load(f)
+            template = yaml.safe_load(f)
         dockerfile = os.path.join(models_dir, model, "Dockerfile")
         image = repository + ":" + model
         subprocess.check_call(["docker", "build", "-t", image, project_root, "-f", dockerfile])
